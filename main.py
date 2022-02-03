@@ -1,6 +1,9 @@
+from difflib import restore
+from email import message
 import discord
-from discord.ext import commands
 import os
+import datetime
+from discord.ext import commands
 from dotenv import load_dotenv
 
 # laod all env variable
@@ -42,6 +45,15 @@ async def delete(ctx, number:int):
     
     for each_message in messages:
         await each_message.delete()
+    
+# delay message
+@bot.command(name="remind")
+async def time(ctx, minutes:float):
+    now = datetime.datetime.now()
+    delta = datetime.timedelta(minutes=minutes) 
+    result = now + delta
+    await delete(ctx, 1)
+    await ctx.channel.send(f"Date => {now} & {result}")
 
 
 bot.run(os.environ.get('TOKEN'))
