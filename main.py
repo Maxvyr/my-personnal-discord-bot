@@ -1,10 +1,9 @@
-from difflib import restore
-from email import message
 import discord
 import os
 import datetime
 from discord.ext import commands
 from dotenv import load_dotenv
+from utils import your_ip
 
 # laod all env variable
 load_dotenv()
@@ -60,6 +59,12 @@ async def time(ctx, minutes:float = -1.0):
         result = now + delta
         await delete(ctx, 1)
         await ctx.channel.send(f"Date => {now} & {result}")
+        
+# find ip
+@bot.command(name="myip")
+async def time(ctx):
+        result = your_ip.find_your_ip()
+        await ctx.channel.send(f"Ton Ip => 💻 **{result}** 💻")
 
 
 bot.run(os.environ.get('TOKEN'))
