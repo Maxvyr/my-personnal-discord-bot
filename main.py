@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 # laod all env variable
 load_dotenv()
 
-
 # prefix de commande du bot
 bot = commands.Bot(command_prefix="!")
 
@@ -40,20 +39,27 @@ async def on_ready():
 
 # définir la command d'un bot avec le décorateur
 @bot.command(name="del")
-async def delete(ctx, number:int):
-    messages = await ctx.channel.history(limit=number + 1).flatten()
-    
-    for each_message in messages:
-        await each_message.delete()
+async def delete(ctx, number:int=-1):
+    if(number == -1.0):
+        await ctx.channel.send(f"Vous avez oubliez de rentrer le nombre de messaque je dois supprimer")
+        await ctx.channel.send(f"example: **!del 2** ")
+        await ctx.channel.send(f"Si vous voulez **supprimer** les **2 messages précédents**")
+    else:
+        messages = await ctx.channel.history(limit=number + 1).flatten()
+        for each_message in messages:
+            await each_message.delete()
     
 # delay message
 @bot.command(name="remind")
-async def time(ctx, minutes:float):
-    now = datetime.datetime.now()
-    delta = datetime.timedelta(minutes=minutes) 
-    result = now + delta
-    await delete(ctx, 1)
-    await ctx.channel.send(f"Date => {now} & {result}")
+async def time(ctx, minutes:float = -1.0):
+    if(minutes == -1.0):
+        await ctx.channel.send(f"Vous avez oubliez de rentrer la valeur en minutes de quand vous souhaitez je vous rappel se message")
+    else:
+        now = datetime.datetime.now()
+        delta = datetime.timedelta(minutes=minutes) 
+        result = now + delta
+        await delete(ctx, 1)
+        await ctx.channel.send(f"Date => {now} & {result}")
 
 
 bot.run(os.environ.get('TOKEN'))
