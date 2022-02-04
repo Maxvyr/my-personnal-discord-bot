@@ -1,8 +1,9 @@
 import os
 import datetime
+import nextcord
 from nextcord.ext import commands
 from dotenv import load_dotenv
-from utils import your_ip
+from utils import your_ip, keep_alive
 
 # laod all env variable
 load_dotenv()
@@ -13,6 +14,7 @@ bot = commands.Bot(command_prefix=">")
 @bot.event
 async def on_ready():
     print("Bot Ready")
+    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.playing, name="Some Boring thing"))
 
 # définir la command d'un bot avec le décorateur
 @bot.command(name="del")
@@ -40,7 +42,7 @@ async def time(ctx, minutes:float = -1.0):
         
 # find ip
 @bot.command(name="myip")
-async def time(ctx):
+async def my_ip(ctx):
         result = your_ip.find_your_ip()
         await ctx.channel.send(f"Ton Ip => 💻 **{result}** 💻")
                
@@ -57,5 +59,8 @@ async def troll(ctx, num=-1):
 
     # await delete(ctx, number=1)
     await ctx.channel.send(gif)
+    
+
+keep_alive.keep_alive()
 
 bot.run(os.environ.get('TOKEN'))
