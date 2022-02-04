@@ -1,7 +1,7 @@
 import discord
 import os
 import datetime
-from discord.ext import commands
+from nextcord.ext import commands
 from dotenv import load_dotenv
 from utils import your_ip
 
