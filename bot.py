@@ -4,17 +4,18 @@ import nextcord
 from nextcord.ext import commands
 from dotenv import load_dotenv
 from utils import your_ip, keep_alive
+from utils.music import Music
 
 # laod all env variable
 load_dotenv()
 
 # prefix de commande du bot
-bot = commands.Bot(command_prefix=">")
+bot = commands.Bot(command_prefix=">",description="Maxvyr personnal bot")
 
 @bot.event
 async def on_ready():
-    print("Bot Ready")
-    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.playing, name="Some Boring thing"))
+    print('✅\n{0.user.name} is Ready \n✅'.format(bot))
+    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.streaming, name="Some Boring thing"))
 
 # définir la command d'un bot avec le décorateur
 @bot.command(name="del")
@@ -52,15 +53,16 @@ async def troll(ctx, num=-1):
     gif = ""
     if num == -1 :
      gif = "https://c.tenor.com/VUQaWMnKtgAAAAAd/no-let-me-think.gif"   
-    elif  num >= 2 :
+    elif  num >= 1 :
      gif = "https://i.imgur.com/nbhmInn.png"   
     else :
         gif = "https://c.tenor.com/VUQaWMnKtgAAAAAd/no-let-me-think.gif"
 
-    # await delete(ctx, number=1)
+    await ctx.message.add_reaction('✅')
     await ctx.channel.send(gif)
     
 
-keep_alive.keep_alive()
+# keep_alive.keep_alive()
+bot.add_cog(Music(bot))
 
 bot.run(os.environ.get('TOKEN'))
