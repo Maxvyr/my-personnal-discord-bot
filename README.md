@@ -8,7 +8,7 @@
 
 ## Descrpition
 
-Coming Soon
+Haneul Bot, it's a discord for help me on my personnal discord, she do a lot of boring and repetitive stain. You can use on your own server if you want, you just need to find a host for the programm
 
 ## Pull Request
 
