@@ -1,9 +1,11 @@
 import os
 import datetime
 import nextcord
+import requests
+import json
 from nextcord.ext import commands
 from dotenv import load_dotenv
-from utils import your_ip, keep_alive, button_usefull
+from utils import your_ip, waifu_req, button_usefull
 from utils.music import Music
 
 # laod all env variable
@@ -65,6 +67,18 @@ async def troll(ctx, num=-1):
 async def link_usefull(ctx):
     view = button_usefull.button_link_manhwa()
     await ctx.send("Yes Master!", view=view)
+    
+@bot.command(name="waifu")
+async def waifu_sfw(ctx):
+    res = requests.get("https://api.waifu.pics/sfw/waifu")
+    result = ""
+    if res.status_code == 200:
+        result = json.loads(res.text)
+        for res in result["url"]:
+            print(res)
+    else:
+        result = res.text
+    await ctx.send(f"Done! {result}")
 
     
 
