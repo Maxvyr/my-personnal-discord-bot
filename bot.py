@@ -3,7 +3,7 @@ import datetime
 import nextcord
 from nextcord.ext import commands
 from dotenv import load_dotenv
-from utils import your_ip, keep_alive
+from utils import your_ip, keep_alive, button_usefull
 from utils.music import Music
 
 # laod all env variable
@@ -60,6 +60,12 @@ async def troll(ctx, num=-1):
 
     await ctx.message.add_reaction('✅')
     await ctx.channel.send(gif)
+    
+@bot.command(name="link")
+async def link_usefull(ctx):
+    view = button_usefull.button_link_manhwa()
+    await ctx.send("Yes Master!", view=view)
+
     
 
 # keep_alive.keep_alive()
