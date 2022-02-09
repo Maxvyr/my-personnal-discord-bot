@@ -21,9 +21,7 @@ def blog_discord_last_article():
         soup = BeautifulSoup(page.content, 'html.parser')
         articles = soup.find_all("div", class_="collection-item-3 w-dyn-item w-col w-col-6")
         link_article = articles[0].find_all('a', href=True)
-        # url_base = URL_BASE.removesuffix("/blog")
         link = URL_BASE.removesuffix("/blog") + str(link_article[0]['href'])
-        print(link)
         return link
     else:
         return None
