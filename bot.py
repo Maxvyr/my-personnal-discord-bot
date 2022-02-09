@@ -5,7 +5,7 @@ import requests
 import json
 from nextcord.ext import commands
 from dotenv import load_dotenv
-from utils import your_ip, waifu_req, button_usefull
+from utils import your_ip, waifu_req, button_usefull, scrap_blog
 from utils.music import Music
 
 # laod all env variable
@@ -66,7 +66,7 @@ async def troll(ctx, num=-1):
 @bot.command(name="link")
 async def link_usefull(ctx):
     view = button_usefull.button_link_manhwa()
-    await ctx.send("Yes Master!", view=view)
+    await ctx.send("Yes Oppa!", view=view)
     
 @bot.command(name="waifu")
 async def waifu_sfw(ctx):
@@ -80,6 +80,12 @@ async def waifu_sfw(ctx):
         result = res.text
     await ctx.send(f"Done! {result}")
 
+@bot.command(name="blog_discord")
+async def blog_discord(ctx):
+        date = scrap_blog.blog_discord_date_last_article()
+        await ctx.channel.send(f"Last Article in Discord Blog => 📚 **{date}** 📚")
+        view = button_usefull.button_read_article()
+        await ctx.channel.send(f"Voulez vous le lire", view=view)
     
 
 # keep_alive.keep_alive()
