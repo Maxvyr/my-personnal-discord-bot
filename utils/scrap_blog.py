@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup, Comment
-from yarl import URL
 
 URL_BASE  = "https://discord.com/blog"
 
